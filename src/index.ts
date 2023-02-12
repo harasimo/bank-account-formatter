@@ -1,5 +1,6 @@
+import { invalidNumberLength, numberCleanupRegexp } from './lib/consts';
 import { electronicFormat, readableFormat } from './lib/format';
-import { pl, Specification } from './lib/specifications';
+import { Specification } from './lib/specifications';
 
 export class BankAccountNumber {
     constructor(
@@ -7,17 +8,20 @@ export class BankAccountNumber {
         private accountNumber: string
     ) {
         const { nationalLength, countryCode } = specification;
-        this.accountNumber = accountNumber.replace(/\s+/g, '').toUpperCase();
+        this.accountNumber = accountNumber
+            .replace(numberCleanupRegexp, '')
+            .toUpperCase();
+
         if (
             this.accountNumber.length < nationalLength ||
             this.accountNumber.length > nationalLength + countryCode.length
         ) {
-            throw new Error('Invalid number length');
+            throw new Error(invalidNumberLength);
         }
     }
 
     /**
-     * Returns human-readable bank account number
+     * Human-readable bank account number
      */
     public get humanReadable() {
         let accNumber = this.accountNumber;
@@ -33,7 +37,7 @@ export class BankAccountNumber {
     }
 
     /**
-     * Returns computer-friendly bank account number
+     * Ccomputer-friendly bank account number
      */
     public get electronicFormat() {
         return electronicFormat(this.accountNumber);

@@ -1,3 +1,5 @@
+import { numberCleanupRegexp } from './consts';
+
 /**
  * Formats given account number to human-friendly string
  * @param accountNumber Number to be formatted
@@ -8,6 +10,10 @@ export const readableFormat: (
     accountNumber: string,
     indices: number[]
 ) => string = (accountNumber, indices) => {
+    if (!accountNumber.replace(numberCleanupRegexp, '').length) {
+        throw new Error('Invalid number length');
+    }
+
     for (const index of indices) {
         const left = accountNumber.slice(0, index);
         const right = accountNumber.slice(index);

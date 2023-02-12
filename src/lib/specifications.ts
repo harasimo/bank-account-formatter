@@ -1,4 +1,4 @@
-export type CountryCodes = 'PL' | 'GB';
+import { CountryCodes } from './countryCodes';
 
 export interface Specification {
     countryCode: CountryCodes;
@@ -6,6 +6,7 @@ export interface Specification {
     sliceIndices: number[];
 }
 
+// example specification
 export const pl: Specification = {
     countryCode: 'PL',
     nationalLength: 26,
