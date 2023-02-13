@@ -1,10 +1,12 @@
-import BankAccountNumber from '..';
+import BankAccountNumber from '../BankAccountNumber';
+import { readableFormatWithRegExp } from '../lib/format';
 import { Specification } from '../lib/specifications';
 
 const dummySpec: Specification = {
     countryCode: 'PL',
     nationalLength: 26,
     sliceIndices: [2, 7, 12, 17, 22, 27],
+    formatRegExp: /(\d{2})(\d{4})(\d{4})(\d{4})(\d{4})(\d{4})(\d{4})/g,
 };
 
 it.each([
