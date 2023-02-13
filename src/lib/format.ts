@@ -41,14 +41,14 @@ export const readableFormatWithRegExp: (
     const matchResult = [...accountNumber.matchAll(expr)];
 
     const firstMatch = matchResult.at(0) ?? [];
-    if (!firstMatch?.length) {
+    if (!firstMatch.length) {
         throw new Error(
             'Cannot match account number to given regular expression.'
         );
     }
 
     // remove 'match' - we need only capturing groups
-    const groups = firstMatch?.slice(1);
+    const groups = firstMatch.slice(1);
 
     return groups.join(' ');
 };

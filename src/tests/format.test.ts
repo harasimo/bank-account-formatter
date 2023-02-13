@@ -79,7 +79,7 @@ it.each([
         expected: 'PL06 1090 2633 2184 4963 6216 7129',
     },
 ])(
-    'readableFormat should properly format for $input',
+    'readableFormatWithRegExp should properly format for $input',
     ({ input, expr, expected }) => {
         expect(readableFormatWithRegExp(input, expr)).toBe(expected);
     }
