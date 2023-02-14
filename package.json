@@ -1,12 +1,12 @@
 {
     "name": "bank-account-formatter",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Simple bank account number formatter",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
         "build": "tsc",
-        "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+        "format": "prettier --write \"src/**/*.ts\"",
         "lint": "tslint -p tsconfig.json",
         "test": "jest --coverage",
         "test-watch": "jest --watchAll",
