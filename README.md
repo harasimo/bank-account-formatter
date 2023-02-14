@@ -1,3 +1,5 @@
+![build status](https://github.com/harasimo/bank-account-formatter/actions/workflows/node.js.yml/badge.svg)
+
 # Simple bank account number formatting library
 
 A really simple library for formatting bank account number.
