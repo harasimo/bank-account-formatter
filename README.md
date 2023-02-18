@@ -2,10 +2,13 @@
 
 # Simple bank account number formatting library
 
-A really simple library for formatting bank account number.
-This library only formats number - there is no building IBAN.
+This library provides simple abstraction over bank account formatting. Just create instance with proper specification.
 
 ## Usage
+
+In order to create `BankAccountNumber` instance, it is necessary to pass `specification` and `accountNumber` in object constructor. A `specification` is defined as object with `countryCode`, `length`, `formatRegexp` and `validationExpression` properties - shaped with `Specification` interface. For reference check `pl` specification.
+
+Example usage:
 
 ```ts
 const plSpecification: Specification = {
@@ -28,6 +31,8 @@ const electronicFormat = accountNumber.electronicFormat;
 ```
 
 ## API
+
+A `BankAccountNumber` instance exposes few getters for easy access to formatted bank account number.
 
 ### `humanReadable`
 
