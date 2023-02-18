@@ -5,7 +5,6 @@ import { Specification } from '../lib/specifications';
 const dummySpec: Specification = {
     countryCode: 'PL',
     length: 26,
-    sliceIndices: [2, 7, 12, 17, 22, 27],
     formatRegExp: /(\d{2})(\d{4})(\d{4})(\d{4})(\d{4})(\d{4})(\d{4})/g,
     validationExpression: /(\d{26})/,
 };

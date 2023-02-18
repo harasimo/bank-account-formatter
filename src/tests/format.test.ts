@@ -1,43 +1,5 @@
 import { invalidNumberLength } from '../lib/consts';
-import {
-    electronicFormat,
-    readableFormat,
-    readableFormatWithRegExp,
-} from '../lib/format';
-
-it.each([
-    { input: '', indices: [] },
-    { input: '', indices: [2] },
-    { input: '', indices: [2, 4] },
-    { input: '     ', indices: [2, 4] },
-])('readableFormat should throw for invalid input', ({ input, indices }) => {
-    expect(() => readableFormat(input, indices)).toThrow();
-});
-
-it.each([
-    { input: '123', indices: [], expected: '123' },
-    { input: '1234567890', indices: [2, 7], expected: '12 3456 7890' },
-    {
-        input: '123456aaaa7890',
-        indices: [2, 7, 12],
-        expected: '12 3456 aaaa 7890',
-    },
-    {
-        input: '06109026332184496362167129',
-        indices: [2, 7, 12, 17, 22, 27],
-        expected: '06 1090 2633 2184 4963 6216 7129',
-    },
-    {
-        input: 'PL06109026332184496362167129',
-        indices: [4, 9, 14, 19, 24, 29],
-        expected: 'PL06 1090 2633 2184 4963 6216 7129',
-    },
-])(
-    'readableFormat should properly format for $input',
-    ({ input, indices, expected }) => {
-        expect(readableFormat(input, indices)).toBe(expected);
-    }
-);
+import { electronicFormat, readableFormat } from '../lib/format';
 
 it.each([
     { input: '', expr: /12/g, error: invalidNumberLength },
@@ -50,9 +12,9 @@ it.each([
         error: 'Cannot match account number to given regular expression.',
     },
 ])(
-    'readableFormatWithRegExp should throw for invalid input',
+    'readableFormat should throw for invalid input',
     ({ input, expr, error }) => {
-        expect(() => readableFormatWithRegExp(input, expr)).toThrow(error);
+        expect(() => readableFormat(input, expr)).toThrow(error);
     }
 );
 
@@ -79,9 +41,9 @@ it.each([
         expected: 'PL06 1090 2633 2184 4963 6216 7129',
     },
 ])(
-    'readableFormatWithRegExp should properly format for $input',
+    'readableFormat should properly format for $input',
     ({ input, expr, expected }) => {
-        expect(readableFormatWithRegExp(input, expr)).toBe(expected);
+        expect(readableFormat(input, expr)).toBe(expected);
     }
 );
 

@@ -1,39 +1,15 @@
 import { invalidNumberLength, numberCleanupRegexp } from './consts';
 
 /**
- * Formats given account number to human-friendly string
- * @param accountNumber Number to be formatted
- * @param indices Array of indices - groups definition
- * @returns Human-friendly formatted account number
- */
-export const readableFormat: (
-    accountNumber: string,
-    indices: number[]
-) => string = (accountNumber, indices) => {
-    if (!accountNumber.replace(numberCleanupRegexp, '').length) {
-        throw new Error(invalidNumberLength);
-    }
-
-    for (const index of indices) {
-        const left = accountNumber.slice(0, index);
-        const right = accountNumber.slice(index);
-
-        accountNumber = `${left} ${right}`;
-    }
-
-    return accountNumber;
-};
-
-/**
  *
  * @param accountNumber Number to be formatted
  * @param expr Regular expression - format
  * @returns Human-friendly formatted account number
  */
-export const readableFormatWithRegExp: (
-    accountNumber: string,
-    expr: RegExp
-) => string = (accountNumber, expr) => {
+export const readableFormat: (accountNumber: string, expr: RegExp) => string = (
+    accountNumber,
+    expr
+) => {
     if (!accountNumber.replace(numberCleanupRegexp, '').length) {
         throw new Error(invalidNumberLength);
     }
@@ -60,4 +36,4 @@ export const readableFormatWithRegExp: (
  */
 export const electronicFormat: (accountNumber: string) => string = (
     accountNumber
-) => accountNumber.replace(/[\s-]/g, '').toUpperCase();
+) => accountNumber.replace(numberCleanupRegexp, '').toUpperCase();

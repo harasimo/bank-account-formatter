@@ -3,7 +3,7 @@ import {
     invalidNumberLength,
     numberCleanupRegexp,
 } from './lib/consts';
-import { electronicFormat, readableFormatWithRegExp } from './lib/format';
+import { electronicFormat, readableFormat } from './lib/format';
 import { Specification } from './lib/specifications';
 
 export class BankAccountNumber {
@@ -48,13 +48,10 @@ export class BankAccountNumber {
         if (this.hasCountryCode) {
             accNumber = accNumber.slice(2, accNumber.length);
 
-            return `${countryCode}${readableFormatWithRegExp(
-                accNumber,
-                formatRegExp
-            )}`;
+            return `${countryCode}${readableFormat(accNumber, formatRegExp)}`;
         }
 
-        return readableFormatWithRegExp(accNumber, formatRegExp);
+        return readableFormat(accNumber, formatRegExp);
     }
 
     /**
@@ -69,13 +66,13 @@ export class BankAccountNumber {
      */
     public get nationalHumanReadable() {
         if (this.hasCountryCode) {
-            return readableFormatWithRegExp(
+            return readableFormat(
                 this.accountNumber.slice(2, this.accountNumber.length),
                 this.specification.formatRegExp
             );
         }
 
-        return readableFormatWithRegExp(
+        return readableFormat(
             this.accountNumber,
             this.specification.formatRegExp
         );
