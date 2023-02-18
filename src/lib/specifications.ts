@@ -3,7 +3,7 @@ import { CountryCodes } from './countryCodes';
 export interface Specification {
     countryCode: CountryCodes;
     length: number;
-    sliceIndices: number[];
+    sliceIndices?: number[];
     formatRegExp: RegExp;
     validationExpression: RegExp;
 }
