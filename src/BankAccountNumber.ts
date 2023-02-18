@@ -34,6 +34,10 @@ export class BankAccountNumber {
         }
     }
 
+    private get hasCountryCode() {
+        return this.accountNumber.startsWith(this.specification.countryCode);
+    }
+
     /**
      * Human-readable bank account number
      */
@@ -41,7 +45,7 @@ export class BankAccountNumber {
         let accNumber = this.accountNumber;
         const { countryCode, formatRegExp } = this.specification;
 
-        if (accNumber.startsWith(countryCode)) {
+        if (this.hasCountryCode) {
             accNumber = accNumber.slice(2, accNumber.length);
 
             return `${countryCode}${readableFormatWithRegExp(
@@ -58,6 +62,23 @@ export class BankAccountNumber {
      */
     public get electronicFormat() {
         return electronicFormat(this.accountNumber);
+    }
+
+    /**
+     * Human-readable formatted BBAN
+     */
+    public get nationalHumanReadable() {
+        if (this.hasCountryCode) {
+            return readableFormatWithRegExp(
+                this.accountNumber.slice(2, this.accountNumber.length),
+                this.specification.formatRegExp
+            );
+        }
+
+        return readableFormatWithRegExp(
+            this.accountNumber,
+            this.specification.formatRegExp
+        );
     }
 }
 

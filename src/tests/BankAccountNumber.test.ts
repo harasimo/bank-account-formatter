@@ -19,6 +19,24 @@ it.each([
 });
 
 it.each([
+    {
+        input: '061090263aa184496362167129',
+        spec: dummySpec,
+    },
+    {
+        input: '061090263aa184496362167129',
+        spec: { ...dummySpec, validationExpression: /^(\d{2})(\w{4})$/g },
+    },
+])(
+    'should throw for invalid number format $spec.validationExpression',
+    ({ input, spec }) => {
+        expect(() => new BankAccountNumber(spec, input)).toThrow(
+            invalidNumberFormat
+        );
+    }
+);
+
+it.each([
     '06109026332184496362167129',
     'PL06109026332184496362167129',
     'pl06109026332184496362167129',
@@ -46,6 +64,31 @@ it.each([
     'should build human readable $spec.countryCode number for $input',
     ({ input, spec, expected }) => {
         expect(new BankAccountNumber(spec, input).humanReadable).toBe(expected);
+    }
+);
+
+it.each([
+    {
+        input: '06109026332184496362167129',
+        spec: dummySpec,
+        expected: '06 1090 2633 2184 4963 6216 7129',
+    },
+    {
+        input: 'PL06109026332184496362167129',
+        spec: dummySpec,
+        expected: '06 1090 2633 2184 4963 6216 7129',
+    },
+    {
+        input: 'pl06109026332184496362167129',
+        spec: dummySpec,
+        expected: '06 1090 2633 2184 4963 6216 7129',
+    },
+])(
+    'should build human readable $spec.countryCode BBAN for $input',
+    ({ input, spec, expected }) => {
+        expect(new BankAccountNumber(spec, input).nationalHumanReadable).toBe(
+            expected
+        );
     }
 );
 
@@ -85,24 +128,6 @@ it.each([
     ({ input, spec, expected }) => {
         expect(new BankAccountNumber(spec, input).electronicFormat).toBe(
             expected
-        );
-    }
-);
-
-it.each([
-    {
-        input: '061090263aa184496362167129',
-        spec: dummySpec,
-    },
-    {
-        input: '061090263aa184496362167129',
-        spec: { ...dummySpec, validationExpression: /^(\d{2})(\w{4})$/g },
-    },
-])(
-    'should throw for invalid number format $spec.validationExpression',
-    ({ input, spec }) => {
-        expect(() => new BankAccountNumber(spec, input)).toThrow(
-            invalidNumberFormat
         );
     }
 );
