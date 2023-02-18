@@ -1,4 +1,8 @@
-import { invalidNumberLength, numberCleanupRegexp } from './lib/consts';
+import {
+    invalidNumberFormat,
+    invalidNumberLength,
+    numberCleanupRegexp,
+} from './lib/consts';
 import { electronicFormat, readableFormatWithRegExp } from './lib/format';
 import { Specification } from './lib/specifications';
 
@@ -7,16 +11,26 @@ export class BankAccountNumber {
         private specification: Specification,
         private accountNumber: string
     ) {
-        const { length: length, countryCode } = specification;
+        const { length, countryCode } = specification;
+
+        // cleanup input
         this.accountNumber = accountNumber
             .replace(numberCleanupRegexp, '')
             .toUpperCase();
 
+        this.validateInputNumber(length, countryCode);
+    }
+
+    private validateInputNumber(length: number, countryCode: string) {
         if (
             this.accountNumber.length < length ||
             this.accountNumber.length > length + countryCode.length
         ) {
             throw new Error(invalidNumberLength);
+        }
+
+        if (!this.specification.validationExpression.test(this.accountNumber)) {
+            throw new Error(invalidNumberFormat);
         }
     }
 

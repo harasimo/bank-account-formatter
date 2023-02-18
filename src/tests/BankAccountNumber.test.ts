@@ -1,4 +1,5 @@
 import BankAccountNumber from '../BankAccountNumber';
+import { invalidNumberFormat } from '../lib/consts';
 import { Specification } from '../lib/specifications';
 
 const dummySpec: Specification = {
@@ -6,6 +7,7 @@ const dummySpec: Specification = {
     length: 26,
     sliceIndices: [2, 7, 12, 17, 22, 27],
     formatRegExp: /(\d{2})(\d{4})(\d{4})(\d{4})(\d{4})(\d{4})(\d{4})/g,
+    validationExpression: /(\d{26})/,
 };
 
 it.each([
@@ -64,11 +66,6 @@ it.each([
         expected: '06109026332184496362167129',
     },
     {
-        input: '061090263aa184496362167129',
-        spec: dummySpec,
-        expected: '061090263AA184496362167129',
-    },
-    {
         input: 'PL06109026332184496362167129',
         spec: dummySpec,
         expected: 'PL06109026332184496362167129',
@@ -78,11 +75,34 @@ it.each([
         spec: dummySpec,
         expected: 'PL06109026332184496362167129',
     },
+    {
+        input: 'pl061--&&090..263,32184  4963+-6/216<>7129',
+        spec: dummySpec,
+        expected: 'PL06109026332184496362167129',
+    },
 ])(
     'should build computer readable $spec.countryCode number for $input',
     ({ input, spec, expected }) => {
         expect(new BankAccountNumber(spec, input).electronicFormat).toBe(
             expected
+        );
+    }
+);
+
+it.each([
+    {
+        input: '061090263aa184496362167129',
+        spec: dummySpec,
+    },
+    {
+        input: '061090263aa184496362167129',
+        spec: { ...dummySpec, validationExpression: /^(\d{2})(\w{4})$/g },
+    },
+])(
+    'should throw for invalid number format $spec.validationExpression',
+    ({ input, spec }) => {
+        expect(() => new BankAccountNumber(spec, input)).toThrow(
+            invalidNumberFormat
         );
     }
 );

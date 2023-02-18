@@ -5,6 +5,7 @@ export interface Specification {
     length: number;
     sliceIndices: number[];
     formatRegExp: RegExp;
+    validationExpression: RegExp;
 }
 
 // example specification
@@ -13,4 +14,5 @@ export const pl: Specification = {
     length: 26,
     sliceIndices: [2, 7, 12, 17, 22, 27],
     formatRegExp: /(\d{2})(\d{4})(\d{4})(\d{4})(\d{4})(\d{4})(\d{4})/g,
+    validationExpression: /^(\d{26})$/,
 };
