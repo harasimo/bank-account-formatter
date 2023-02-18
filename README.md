@@ -12,7 +12,7 @@ This library only formats number - there is no validation or building IBAN.
 ```ts
 const plSpecification: Specification = {
     countryCode: 'PL',
-    nationalLength: 26,
+    length: 26,
     sliceIndices: [2, 7, 12, 17, 22, 27],
 };
 
@@ -33,7 +33,7 @@ const electronicFormat = accountNumber.electronicFormat;
 ```ts
 const plSpecification: Specification = {
     countryCode: 'PL',
-    nationalLength: 26,
+    length: 26,
     formatRegExp: /(\d{2})(\d{4})(\d{4})(\d{4})(\d{4})(\d{4})(\d{4})/g,
 };
 

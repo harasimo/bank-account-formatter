@@ -7,14 +7,14 @@ export class BankAccountNumber {
         private specification: Specification,
         private accountNumber: string
     ) {
-        const { nationalLength, countryCode } = specification;
+        const { length: length, countryCode } = specification;
         this.accountNumber = accountNumber
             .replace(numberCleanupRegexp, '')
             .toUpperCase();
 
         if (
-            this.accountNumber.length < nationalLength ||
-            this.accountNumber.length > nationalLength + countryCode.length
+            this.accountNumber.length < length ||
+            this.accountNumber.length > length + countryCode.length
         ) {
             throw new Error(invalidNumberLength);
         }
