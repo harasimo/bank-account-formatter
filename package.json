@@ -1,6 +1,6 @@
 {
     "name": "bank-account-formatter",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "Simple bank account number formatter",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
